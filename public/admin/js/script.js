@@ -99,3 +99,13 @@ if(formChangeMulti){
         }
     })
 }
+
+//6 Xóa 1 sản phẩm
+const buttonDelete = document.querySelectorAll("[button-delete]")
+if(buttonDelete.length > 0){
+    buttonDelete.forEach(button =>{
+        button.addEventListener("click", (event)=>{
+            
+        })
+    })
+}

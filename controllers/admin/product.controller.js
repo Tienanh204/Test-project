@@ -3,6 +3,7 @@ const filterStatusHelper = require("../../helpers/filterStatus.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
 
+//1. [PATCH]
 module.exports.index = async (req, res)=>{ 
     //1 Xử lý logic nút bấm
     let filterStatus = filterStatusHelper(req.query)
@@ -40,6 +41,7 @@ module.exports.index = async (req, res)=>{
 }
 
 
+//2. [PATCH] thay đổi trạng thái 1 sản phẩm
 module.exports.changeStatus = async (req, res)=>{
     const status = req.params.status
     const id = req.params.id
@@ -47,6 +49,7 @@ module.exports.changeStatus = async (req, res)=>{
     res.redirect("back")
 }
 
+//3. [PATCH] thay đổi trạnh thái nhiều sản phẩm
 module.exports.changeMulti = async (req, res) =>{
     let type = req.body.type
     let ids = (req.body.ids).split(",")
@@ -63,4 +66,9 @@ module.exports.changeMulti = async (req, res) =>{
             break;
     }
     res.redirect('back')
+}
+
+//4. [DELETE] xóa 1 sản phẩm
+module.exports.deleteItem = async (req, res) =>{
+    res.send("oke")
 }
