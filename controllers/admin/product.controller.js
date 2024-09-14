@@ -34,6 +34,7 @@ module.exports.index = async (req, res)=>{
                                    .sort({position: "desc"})
                                    .limit(objectPagination.limitItem)
                                    .skip(objectPagination.skip)
+
     res.render("admin/pages/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
     products: products,
@@ -49,6 +50,7 @@ module.exports.changeStatus = async (req, res)=>{
     const status = req.params.status
     const id = req.params.id
     await Product.updateOne({_id: id}, {status: status})
+    req.flash('success', 'Cập nhập thành công!');
     res.redirect("back")
 }
 
@@ -60,16 +62,26 @@ module.exports.changeMulti = async (req, res) =>{
     switch (type) {
         case "active":
             await Product.updateMany({ _id: { $in: ids } }, {status: "active"})
+            req.flash('success', 'Cập nhập thành công!');
             break;
         case "inactive":
             await Product.updateMany({ _id: { $in: ids } }, {status: "inactive"})
+            req.flash('success', 'Cập nhập thành công!');
             break;
         case "delete-all":
-            await Product.updateMany({_id: {$in: ids}}, {deleted: true})
+            await Product.updateMany(
+                {_id: {$in: ids}},
+                {
+                    deleted: true,
+                    deletedAt: new Date(),
+                }
+            )
+            req.flash('success', 'Sản phẩm đã bị xóa!');
         case "change-position":
             for (const element of ids) {
                 const [id, post] = element.split("-")
                 await Product.updateOne({_id: id}, {position: post})
+                req.flash('success', 'Sản phẩm đã được thay đổi!');
             }
         default:
             break;
@@ -82,6 +94,7 @@ module.exports.deleteItem = async (req, res) =>{
     const id = req.params.id
     //Xóa mềm
     await Product.updateOne({_id: id}, {deleted: true})
+    req.flash('success', 'Sản phẩm đã bị xóa!');
     res.redirect("back")
 }
 
