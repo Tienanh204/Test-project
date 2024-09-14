@@ -30,7 +30,10 @@ module.exports.index = async (req, res)=>{
 
     
     //4. Render ra giao diện
-    const products = await  Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip)
+    const products = await  Product.find(find)
+                                   .sort({position: "desc"})
+                                   .limit(objectPagination.limitItem)
+                                   .skip(objectPagination.skip)
     res.render("admin/pages/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
     products: products,
@@ -49,7 +52,7 @@ module.exports.changeStatus = async (req, res)=>{
     res.redirect("back")
 }
 
-//3. [PATCH] thay đổi trạnh thái nhiều sản phẩm
+//3. [PATCH] thay đổi trạnh thái (hoạt động/ ngường hoạt động/ xóa/ thay đổi vị trí) nhiều sản phẩm
 module.exports.changeMulti = async (req, res) =>{
     let type = req.body.type
     let ids = (req.body.ids).split(",")
@@ -61,7 +64,13 @@ module.exports.changeMulti = async (req, res) =>{
         case "inactive":
             await Product.updateMany({ _id: { $in: ids } }, {status: "inactive"})
             break;
-        
+        case "delete-all":
+            await Product.updateMany({_id: {$in: ids}}, {deleted: true})
+        case "change-position":
+            for (const element of ids) {
+                const [id, post] = element.split("-")
+                await Product.updateOne({_id: id}, {position: post})
+            }
         default:
             break;
     }
@@ -76,4 +85,4 @@ module.exports.deleteItem = async (req, res) =>{
     res.redirect("back")
 }
 
-//5. [DELETE] xóa nhiều sản phẩm
+

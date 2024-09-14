@@ -69,7 +69,7 @@ if(checkboxMulti){
 }
 
 //5. Xử lý thay đổi trạng thái của nhiều sản phẩm
-// Form Change Multi (Thay đổi trạng thái của nhiều sản phẩm)
+// Form Change Multi (Thay đổi trạng thái hoạt động/ ngừng hoạt động /xóa/ thay đổi vị trí => của nhiều sản phẩm)
 const formChangeMulti = document.querySelector("[form-change-multi]")
 
 if(formChangeMulti){
@@ -81,16 +81,30 @@ if(formChangeMulti){
             "input[name='id']:checked"
         ) //Lấy ra các sản phẩm đã được tích
 
+        const typechange = event.target.elements.type.value
+        if(typechange=="delete-all"){
+            const inConFirm = confirm("Xóa các sản phẩm đã chọn")
+            
+            if(!inConFirm){
+                return;
+            }
+        }
+
         if(inputChecked.length > 0){
             let ids = []
 
             inputChecked.forEach(button =>{
                 const id = button.value
-                ids.push(id)
+                if(typechange=="change-position"){
+                    const position = button.closest("tr").querySelector("input[name='position']").value
+                    ids.push(id + '-' + position)
+                }else{
+                    ids.push(id)
+                }
             })
 
             const inputForm = document.querySelector("input[name='ids']")
-            inputForm.value = ids.join(",") //Truyền chuỗi các id của sản phẩm vào ô input để gửi lên server
+            inputForm.value = ids.join(",") 
 
             formChangeMulti.submit()
 
@@ -115,3 +129,4 @@ if(buttonDelete.length > 0){
         })
     })
 }
+
