@@ -70,5 +70,10 @@ module.exports.changeMulti = async (req, res) =>{
 
 //4. [DELETE] xóa 1 sản phẩm
 module.exports.deleteItem = async (req, res) =>{
-    res.send("oke")
+    const id = req.params.id
+    //Xóa mềm
+    await Product.updateOne({_id: id}, {deleted: true})
+    res.redirect("back")
 }
+
+//5. [DELETE] xóa nhiều sản phẩm

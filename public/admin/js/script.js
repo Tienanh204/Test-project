@@ -102,10 +102,16 @@ if(formChangeMulti){
 
 //6 Xóa 1 sản phẩm
 const buttonDelete = document.querySelectorAll("[button-delete]")
+const formDeleteItem = document.querySelector("#form-delete-item")
 if(buttonDelete.length > 0){
+    const path = formDeleteItem.getAttribute("data-path")
     buttonDelete.forEach(button =>{
         button.addEventListener("click", (event)=>{
-            
+            const id = button.getAttribute("data-id")
+            const newPath = path + `/${id}?_method=DELETE`
+
+            formDeleteItem.action = newPath
+            formDeleteItem.submit()
         })
     })
 }
