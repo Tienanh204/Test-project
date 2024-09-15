@@ -113,15 +113,19 @@ module.exports.createPost = async (req, res) =>{
     req.body.stock = parseInt(req.body.stock)
 
     if(req.body.position == ""){
-        const countProducts = await Product.countDocuments()
+        const countProducts = await Product.countDocuments({})
         req.body.position = countProducts + 1
     }else{
         req.body.position = parseInt(req.body.position)
     }
 
-    const newProduct = new Product(req.body)
-    await newProduct.save()
-    
+    //req.body.thumbnail = `/uploads/${req.file.filename}`
+
+    //Tạo mới 1 sản phẩm với data lấy từ "req.body"
+    const product = new Product(req.body)
+    //Lưu sản phẩm vào database
+    await product.save()
+
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 }
 

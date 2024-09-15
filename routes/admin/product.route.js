@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+const multer  = require('multer')
+const upload = multer({ dest: './uploads/' })
+
 const controller = require("../../controllers/admin/product.controller.js")
 
 router.get('/', controller.index)
