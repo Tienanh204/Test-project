@@ -2,6 +2,7 @@ const Product = require("../../models/product.model.js")
 const filterStatusHelper = require("../../helpers/filterStatus.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
+const systemConfig = require("../../config/system.js")
 
 //1. [PATCH]
 module.exports.index = async (req, res)=>{ 
@@ -120,6 +121,7 @@ module.exports.createPost = async (req, res) =>{
 
     const newProduct = new Product(req.body)
     await newProduct.save()
+    
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 }
 
