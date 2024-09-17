@@ -120,7 +120,7 @@ module.exports.createPost = async (req, res) =>{
         req.body.position = parseInt(req.body.position)
     }
 
-    //console.log(req.file)
+    console.log(req.file)
     req.body.thumbnail = `/uploads/${req.file.filename}`
 
     //Tạo mới 1 sản phẩm với data lấy từ "req.body"
