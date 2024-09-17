@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose")
 const productSchema = new mongoose.Schema(
     { title: String,
@@ -8,6 +9,11 @@ const productSchema = new mongoose.Schema(
     thumbnail:String,
     status:String,
     position:Number,
+    // slug: {
+    //     type: String,
+    //     slug: "title", // Tạo slug từ trường "title"
+    //     unique: true   // Đảm bảo slug là duy nhất
+    //   },
     deleted:{type: Boolean, default: false},
     deletedAt: Date },
 

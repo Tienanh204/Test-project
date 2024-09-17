@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const multer  = require('multer')
-const upload = multer({ dest: './uploads/' })
+const upload = multer({ dest: './uploads' })
 
 const controller = require("../../controllers/admin/product.controller.js")
 
@@ -16,6 +16,6 @@ router.delete('/delete/:id', controller.deleteItem)
 
 router.get('/create', controller.create) 
 
-router.post('/create', controller.createPost) 
+router.post('/create', upload.single('thumbnail'), controller.createPost) 
 
 module.exports = router
