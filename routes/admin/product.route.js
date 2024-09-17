@@ -3,7 +3,7 @@ const router = express.Router()
 
 const storageMulter = require("../../helpers/storageMulter.js")
 const multer  = require('multer')
-const upload = multer({ storage: storageMulter() })
+const upload = multer({ storage: storageMulter()})
 
 const controller = require("../../controllers/admin/product.controller.js")
 
