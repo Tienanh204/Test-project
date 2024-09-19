@@ -1,5 +1,6 @@
 //Xử lý bên frontend
 
+//-------------------------------------------------------------------
 //1. Lọc sản phẩm theo trạng thái (tất cả/ hoạt động/ dừng hoạt động)
 const buttonStatus = document.querySelectorAll("[button-status]")
 if(buttonStatus.length > 0){
@@ -17,7 +18,7 @@ if(buttonStatus.length > 0){
     })
 }
 
-
+//-------------------------------------------------------------------
 //2. Tìm kiếm sản phẩm theo tên
 const findProducts = document.querySelector("#form-search")
 
@@ -35,6 +36,7 @@ if(findProducts){
     })
 }
 
+//-------------------------------------------------------------------
 //3. Phân trang sản phẩm
 const buttonPagination = document.querySelectorAll("[button-pagination]")
 if(buttonPagination){
@@ -48,6 +50,7 @@ if(buttonPagination){
     })
 }
 
+//-------------------------------------------------------------------
 //4. Xử lý logic các nút bấm
 const checkboxMulti = document.querySelector("[checkbox-multi]")
 if(checkboxMulti){
@@ -68,6 +71,7 @@ if(checkboxMulti){
     })
 }
 
+//-------------------------------------------------------------------
 //5. Xử lý thay đổi trạng thái của nhiều sản phẩm
 // Form Change Multi (Thay đổi trạng thái hoạt động/ ngừng hoạt động /xóa/ thay đổi vị trí => của nhiều sản phẩm)
 const formChangeMulti = document.querySelector("[form-change-multi]")
@@ -114,6 +118,7 @@ if(formChangeMulti){
     })
 }
 
+//-------------------------------------------------------------------
 //6 Xóa 1 sản phẩm
 const buttonDelete = document.querySelectorAll("[button-delete]")
 const formDeleteItem = document.querySelector("#form-delete-item")
@@ -130,6 +135,7 @@ if(buttonDelete.length > 0){
     })
 }
 
+//-------------------------------------------------------------------
 //7. xử lý thông báo thành công khi thay đổi
 const showAlert = document.querySelector("[show-alert]")
 if(showAlert){
@@ -142,5 +148,32 @@ if(showAlert){
 
     closeAlert.addEventListener("click", ()=>{
         showAlert.classList.add("alert-hidden")
+    })
+}
+
+//-------------------------------------------------------------------
+//8 Preview Image (Xem trước được ảnh khi tải lên)
+
+const uploadImage = document.querySelector("[upload-image]")
+console.log(uploadImage)
+if(uploadImage){
+    const uploadImageInput = document.querySelector("[upload-image-input]")
+    const uploadImagePreview = document.querySelector("[upload-image-preview]")
+    const closeButton = document.querySelector("[close-button]")
+
+    uploadImageInput.addEventListener("change", (e)=>{
+        const file = e.target.files[0];
+        if(file){
+            uploadImagePreview.src = URL.createObjectURL(file)
+            uploadImagePreview.classList.remove("hidden")
+            closeButton.classList.remove("hidden")
+        }
+
+        closeButton.addEventListener("click", ()=>{
+            uploadImageInput.value = "";
+            uploadImagePreview.src =""
+            uploadImagePreview.classList.add("hidden")
+            closeButton.classList.add("hidden")
+        })
     })
 }

@@ -61,14 +61,25 @@ block main
         min="0"
       )
     
-    div(class="form-group")
+    div(
+      class="form-group"
+      upload-image
+    )
       label(for="thumbnail") Ảnh
       input(
         type="file"
         class="form-control-file"
         id="thumbnail"
         name="thumbnail"
+        accept="image/*" 
+        upload-image-input
       )
+      img(
+        src="" 
+        upload-image-preview
+        class="image-preview hidden"
+      )
+      button(class="hidden" close-button) X
     
     div(class="form-group")
       label(for="position") Vị trí

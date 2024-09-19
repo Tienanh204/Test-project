@@ -100,7 +100,7 @@ module.exports.deleteItem = async (req, res) =>{
 }
 
 
-//5. Tạo mới 1 sanr phẩm
+//5. Tạo mới 1 sản phẩm
 // [GET] "/admin/products/create"
 module.exports.create = async (req, res) =>{
     res.render("admin/pages/products/create.pug")
@@ -131,3 +131,4 @@ module.exports.createPost = async (req, res) =>{
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 }
 
+//6. Chỉnh sửa 1 sản phẩm
