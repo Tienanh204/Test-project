@@ -132,3 +132,35 @@ module.exports.createPost = async (req, res) =>{
 }
 
 //6. Chỉnh sửa 1 sản phẩm
+//[GET] Aadmin/products/edit/:id
+module.exports.edit = async (req, res)=>{
+    const find = {
+        _id: req.params.id,
+        deleted: false
+    }
+    const product = await Product.findOne(find)
+
+    res.render("admin/pages/products/edit.pug",{
+        pageTitle: "Trang sửa sản phẩm",
+        product: product
+    })
+}
+
+module.exports.editPatch = async (req, res)=>{
+    console.log(req.file)
+    req.body.price = parseInt(req.body.price)
+    req.body.discountPercentage = parseInt(req.body.discountPercentage)
+    req.body.stock = parseInt(req.body.stock)
+    req.body.position = parseInt(req.body.position)
+
+    if(req.file){
+        req.body.thumbnail = `/uploads/${req.file.filename}`
+    }
+
+    try {
+        
+    } catch (error) {
+        
+    }
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
+}
