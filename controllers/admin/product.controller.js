@@ -147,7 +147,6 @@ module.exports.edit = async (req, res)=>{
 }
 
 module.exports.editPatch = async (req, res)=>{
-    console.log(req.file)
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
@@ -158,9 +157,12 @@ module.exports.editPatch = async (req, res)=>{
     }
 
     try {
-        
-    } catch (error) {
-        
+        await Product.updateOne({_id: req.params.id}, req.body )
+        req.flash('success', 'Cập nhập thành công!');
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
+    } catch (error) { 
+        console.error('Error updating product:', error);
+        req.flash('error', 'Cập nhật không thành công!');
+        return res.redirect('back');
     }
-    res.redirect(`${systemConfig.prefixAdmin}/products`)
 }
