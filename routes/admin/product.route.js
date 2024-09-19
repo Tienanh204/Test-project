@@ -5,6 +5,8 @@ const storageMulter = require("../../helpers/storageMulter.js")
 const multer  = require('multer')
 const upload = multer({ storage: storageMulter()})
 
+const validate = require("../../validate/admin/product.validate.js")
+
 const controller = require("../../controllers/admin/product.controller.js")
 
 router.get('/', controller.index)
@@ -18,14 +20,17 @@ router.delete('/delete/:id', controller.deleteItem)
 //Tạo mới sản phẩm
 router.get('/create', controller.create) 
 
-router.post('/create', upload.single('thumbnail'), controller.createPost) 
+router.post('/create', 
+    upload.single('thumbnail'), 
+    validate.createPost,
+    controller.createPost) 
 
 //Chỉnh sửa sản phẩm
 router.get('/edit/:id', controller.edit) 
 
 router.patch('/edit/:id', 
     upload.single('thumbnail'),
+    validate.createPost,
     controller.editPatch) 
-
 
 module.exports = router
