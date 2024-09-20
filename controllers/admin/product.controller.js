@@ -107,29 +107,28 @@ module.exports.create = async (req, res) =>{
 }
 
 // [POST] "/admin/products/create"
-module.exports.createPost = async (req, res) =>{
-    console.log(req.body)
-    req.body.price = parseInt(req.body.price)
-    req.body.discountPercentage = parseInt(req.body.discountPercentage)
-    req.body.stock = parseInt(req.body.stock)
+module.exports.createPost = async (req, res)=>{
+    console.log(req.file)
 
-    if(req.body.position == ""){
-        const countProducts = await Product.countDocuments({})
-        req.body.position = countProducts + 1
-    }else{
-        req.body.position = parseInt(req.body.position)
-    }
+   req.body.price = parseInt(req.body.price)
+   req.body.discountPercentage = parseInt(req.body.discountPercentage)
+   req.body.stock = parseInt(req.body.stock)
 
-    // console.log(req.file)
-    // req.body.thumbnail = `/uploads/${req.file.filename}`
+   if(req.body.position == ""){
+       const countProducts = await Product.countDocuments({})
+       req.body.position = countProducts + 1
+   }else{
+       req.body.position = parseInt(req.body.position)
+   }
+   
+   //Tạo mới 1 sản phẩm với data lấy từ "req.body"
+   const product = new Product(req.body)
+   //Lưu sản phẩm vào database
+   await product.save()
 
-    //Tạo mới 1 sản phẩm với data lấy từ "req.body"
-    const product = new Product(req.body)
-    //Lưu sản phẩm vào database
-    await product.save()
-
-    res.redirect(`${systemConfig.prefixAdmin}/products`)
+   res.redirect(`${systemConfig.prefixAdmin}/products`)
 }
+
 
 //6. Chỉnh sửa 1 sản phẩm
 //[GET] Aadmin/products/edit/:id
