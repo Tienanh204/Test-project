@@ -19,7 +19,7 @@ const methodOverride = require('method-override');
 database.connect();
 
 // Cấu hình Pug
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 
 // Khai báo biến toàn cục có thể dùng ở nhiều nơi
@@ -29,7 +29,7 @@ app.locals.prefixAdmin = PATH_ADMIN.prefixAdmin;
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
-app.use(express.static('public')); // Static file
+app.use(express.static(`${__dirname}/public`)); // Static file
 app.use(cookieParser('Tienanh@123'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());

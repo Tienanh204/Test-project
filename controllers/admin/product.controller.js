@@ -171,10 +171,19 @@ module.exports.editPatch = async (req, res)=>{
 //7. chi tiết 1 sản phẩm
 //[GET] admin/products/detail/:id
 module.exports.detail = async (req, res)=>{
-    const product = await Product.findById(req.params.id)
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id
+        };
 
-    res.render("admin/pages/products/detail.pug", {
-        pageTitle: "Chi tiết sản phẩm",
+    const product = await Product.findOne(find);
+    
+    res.render('admin/pages/products/detail', {
+        pageTitle: product.title,
         product: product
-    })
+    });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
 }
