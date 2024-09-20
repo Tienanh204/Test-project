@@ -166,3 +166,15 @@ module.exports.editPatch = async (req, res)=>{
         return res.redirect('back');
     }
 }
+
+
+//7. chi tiết 1 sản phẩm
+//[GET] admin/products/detail/:id
+module.exports.detail = async (req, res)=>{
+    const product = await Product.findById(req.params.id)
+
+    res.render("admin/pages/products/detail.pug", {
+        pageTitle: "Chi tiết sản phẩm",
+        product: product
+    })
+}
