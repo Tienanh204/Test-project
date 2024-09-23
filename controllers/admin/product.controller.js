@@ -29,10 +29,18 @@ module.exports.index = async (req, res)=>{
         currentPage: 1
     }, countProducts, req.query)
 
+    //4. Sắp xếp sản phẩm theo tiêu chí nhất định
+    let sort = {}
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue
+    }else{
+        sort.position = "desc"
+    }
+
     
     //4. Render ra giao diện
     const products = await  Product.find(find)
-                                   .sort({position: "desc"})
+                                   .sort(sort)
                                    .limit(objectPagination.limitItem)
                                    .skip(objectPagination.skip)
 
