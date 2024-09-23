@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var path = require('path');
 require('dotenv').config();
 const port = process.env.PORT;
 
@@ -37,6 +38,9 @@ app.use(flash());
 // Định nghĩa các route
 routeClient(app);
 routeAdmin(app);
+
+//Trình soạn thảo htmnl
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 // Lắng nghe trên cổng đã cấu hình
 app.listen(port, () => {
