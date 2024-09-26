@@ -3,23 +3,60 @@ const systemConfig = require("../../config/system.js")
 
 //1. [GET] Trang chính chủ
 module.exports.index = async (req, res)=>{
-
     let find = {
         deleted: false
     }
+    function createTree(arr, parentID = ""){
+        const tree = []
+        arr.forEach(item => {
+            if(item.parent_id === parentID){
+                const newItem = item
+                const children = createTree(arr, item.id)
+                if(children.length > 0){
+                    newItem.children = children
+                }
+                tree.push(newItem)
+            }
+        });
+        return tree
+    }
     const records = await  ProductCategory.find(find)
+    const newRecords = createTree(records)
 
     res.render("admin/pages/product-category/index.pug", {
         pageTitle: "Danh mục sản phẩm",
-        records: records
+        records: newRecords
     })
 }
 
 //2. Tạo danh mục sản phẩm
 //[GET] /admin/products-category/create
 module.exports.create = async (req, res)=>{
+    const find = {
+        deleted: false
+    }
+
+    function createTree(arr, parentID = ""){
+        const tree = []
+        arr.forEach(item => {
+            if(item.parent_id === parentID){
+                const newItem = item
+                const children = createTree(arr, item.id)
+                if(children.length > 0){
+                    newItem.children = children
+                }
+                tree.push(newItem)
+            }
+        });
+        return tree
+    }
+    const records = await ProductCategory.find(find)
+    const newRecords = createTree(records)
+    // console.log(newRecords)
+
     res.render("admin/pages/product-category/create.pug", {
-        pageTitle: "Danh mục sản phẩm"
+        pageTitle: "Danh mục sản phẩm",
+        records: newRecords
     })
 }
 
