@@ -45,11 +45,11 @@ module.exports.index = async (req, res)=>{
                                    .skip(objectPagination.skip)
 
     res.render("admin/pages/products/index.pug", {
-    pageTitle: "Danh sách sản phẩm",
-    products: products,
-    keyword: objectSearch.keyword,
-    filterStatus: filterStatus,
-    pagination: objectPagination
+        pageTitle: "Danh sách sản phẩm",
+        products: products,
+        keyword: objectSearch.keyword,
+        filterStatus: filterStatus,
+        pagination: objectPagination
     })
 }
 
