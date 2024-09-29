@@ -2,7 +2,7 @@ const Roles = require("../../models/role.model")
 
 const systemConfig = require("../../config/system.js")
 const createTreeHelper = require("../../helpers/createTree.js")
-const Role = require("../../models/role.model")
+
 
 //1. [GET] admin/roles
 module.exports.index = async (req, res)=>{
@@ -43,7 +43,7 @@ module.exports.detail = async (req, res)=>{
         deleted: false,
         _id: req.params.id
     }
-    const records = await Role.findOne(find)
+    const records = await Roles.findOne(find)
     res.render("admin/pages/roles/detail.pug", {
         pageTitle: "Chi tiết mhóm quyền",
         records: records
@@ -72,5 +72,16 @@ module.exports.editPatch = async (req, res)=>{
     } catch (error){
         req.flash('error', 'Lỗi cập nhập!');
     }
+    res.redirect(`${systemConfig.prefixAdmin}/roles`)
+}
+
+
+//[DELETE] admin/roles/delete/:id
+
+module.exports.deleteRole = async (req, res)=>{
+    const id = req.params.id
+    await Roles.updateOne({_id: id}, {
+        deleted: true
+    })
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }

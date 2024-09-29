@@ -209,3 +209,22 @@ if(sort){
         optionSelected.selected = true
     }
 }
+
+//-------------------------------------------------------------------
+//9. Xóa 1 nhóm quyền
+const formDeletePermission = document.querySelector("#form-delete-permission")
+console.log(formDeletePermission)
+if(formDeletePermission){
+    const buttonDeletePermission = document.querySelectorAll("[button-delete-permission]")
+    const path = formDeletePermission.getAttribute("data-path")
+
+    buttonDeletePermission.forEach(buttonDelete=>{
+        buttonDelete.addEventListener("click", ()=>{
+            const id = buttonDelete.getAttribute("data-id")
+            const newPath = path + `/${id}?_method=DELETE`
+
+            formDeletePermission.action = newPath
+            formDeletePermission.submit()
+        })
+    })
+}
