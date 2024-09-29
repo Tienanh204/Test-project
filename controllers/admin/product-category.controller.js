@@ -60,9 +60,15 @@ module.exports.edit = async (req, res)=>{
     }
     const product = await ProductCategory.findOne(find)
 
+    const records = await  ProductCategory.find({
+        deleted: false
+    })
+    const newRecords = createTreeHelper.tree(records)
+
     res.render("admin/pages/product-category/edit.pug",{
         pageTitle: "Trang sửa sản phẩm",
-        product: product
+        product: product,
+        records: newRecords
     })
 }
 
