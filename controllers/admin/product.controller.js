@@ -1,8 +1,10 @@
 const Product = require("../../models/product.model.js")
+const ProductCategory = require("../../models/product-category.model.js")
 const filterStatusHelper = require("../../helpers/filterStatus.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
 const systemConfig = require("../../config/system.js")
+const createTreeHelper = require("../../helpers/createTree.js")
 
 //1. [PATCH]
 module.exports.index = async (req, res)=>{ 
@@ -145,9 +147,15 @@ module.exports.edit = async (req, res)=>{
     }
     const product = await Product.findOne(find)
 
+    const records = await  ProductCategory.find({
+        deleted: false
+    })
+    const newRecords = createTreeHelper.tree(records)
+
     res.render("admin/pages/products/edit.pug",{
         pageTitle: "Trang sửa sản phẩm",
-        product: product
+        product: product,
+        records: newRecords
     })
 }
 
