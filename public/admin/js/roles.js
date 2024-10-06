@@ -35,7 +35,6 @@ if(tablePermission){
 
                 formChangePermission.submit()
             }
-            // console.log(permission)
         })
 
     })
