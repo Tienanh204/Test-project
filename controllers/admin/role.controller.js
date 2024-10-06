@@ -85,3 +85,16 @@ module.exports.deleteRole = async (req, res)=>{
     })
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
+
+//5. Phân quyền
+//[GET] admin/roles/permissions
+module.exports.permissions = async (req, res)=>{
+    const find = {
+        deleted: false
+    }
+    const records = await Roles.find(find)
+    res.render("admin/pages/roles/permissions.pug", {
+        pageTitle: "Phân quyền",
+        records: records
+    })
+}

@@ -18,4 +18,8 @@ router.patch('/edit/:id', controller.editPatch)
 
 //Xóa
 router.delete('/delete/:id', controller.deleteRole)
+
+//Phân quyền
+router.get('/permissions', controller.permissions)
+
 module.exports = router
