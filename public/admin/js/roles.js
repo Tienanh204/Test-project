@@ -35,7 +35,27 @@ if(tablePermission){
 
                 formChangePermission.submit()
             }
+
+
         })
 
+    })
+}
+
+
+//Đổ data những ô đã tích
+const dataRecords = document.querySelector("[data-records]")
+if(dataRecords){
+    const records =JSON.parse(dataRecords.getAttribute("data-records"))
+    const tablePermission = document.querySelector("[table-permission]")
+
+    records.forEach((record, index) =>{
+        const permissions = record.permissions
+        permissions.forEach(permission =>{
+            const row = tablePermission.querySelector(`[data-name='${permission}']`)
+            const input = row.querySelectorAll("input")[index];
+
+            input.checked = true
+        })
     })
 }
