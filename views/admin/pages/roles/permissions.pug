@@ -26,10 +26,10 @@ block main
           each item in records
             th(class="text-center") #{item.title}
       tbody 
-        tr(data-name="id" class="d-none")
+        tr(data-name="id")
           td 
           each item in records
-            td(class="text-center hidden")
+            td(class="text-center")
               input(type="text" value = item.id)
         
         //- Danh mục sản phẩm
@@ -38,31 +38,27 @@ block main
             b Danh mục sản phẩm  
         tr(data-name="products-category_view")
           td Xem 
-          td(class="text-center")
-            input(type="checkbox")
-          td(class="text-center")
-            input(type="checkbox")
+          each item in records
+            td(class="text-center")
+              input(type="checkbox")
 
         tr(data-name="products-category_create")
           td Thêm mới
-          td(class="text-center")
-            input(type="checkbox")
-          td(class="text-center")
-            input(type="checkbox")
+          each item in records
+            td(class="text-center")
+              input(type="checkbox")
 
         tr(data-name="products-category_edit")
           td Chỉnh sửa
-          td(class="text-center")
-            input(type="checkbox")
-          td(class="text-center")
-            input(type="checkbox")
+          each item in records
+            td(class="text-center")
+              input(type="checkbox")
 
         tr(data-name="products-category_delete")
           td Xóa
-          td(class="text-center")
-            input(type="checkbox")
-          td(class="text-center")
-            input(type="checkbox")
+          each item in records
+            td(class="text-center")
+              input(type="checkbox")
   else 
       a(
         href=`${prefixAdmin}/roles/create`
@@ -74,7 +70,7 @@ block main
     method="POST"
     action=`${prefixAdmin}/roles/permissions?_method=PATCH`
   )
-    div(class="form-group d-none")
+    div(class="form-group")
       input(
         type="text"
         class="form-control"

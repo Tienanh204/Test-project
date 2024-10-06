@@ -93,8 +93,15 @@ module.exports.permissions = async (req, res)=>{
         deleted: false
     }
     const records = await Roles.find(find)
+
+    //console.log(records)
     res.render("admin/pages/roles/permissions.pug", {
         pageTitle: "Phân quyền",
         records: records
     })
+}
+
+module.exports.permissionsPatch = async (req, res) =>{
+    console.log(req.body)
+    res.redirect("back")
 }
